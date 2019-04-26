@@ -11,20 +11,20 @@
 
 //http://localhost:8000/api/v1/
 
-var app = angular.module('my-app', ['ngResource']);
+var app = angular.module('my-app', []);
     app.controller('my-ctrl',
         function ($scope, $http) {
 
             var request = {
                 method: 'get',
-                url: 'data.json',
+                url: 'http://localhost:3000/flights',
                 dataType: 'json',
                 contentType: "application/json",
             };
 
             $http(request)
                 .then(function (response) {
-                    $scope.flights = response.data;
+                    $scope.paths = response.data;
                 })
 
                 // .catch(function () {

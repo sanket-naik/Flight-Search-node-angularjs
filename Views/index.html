@@ -5,31 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Flight Booking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="../Styles/main.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="../Resources/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../public/Styles/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../public/Resources/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     
 </head>
 <body ng-app="my-app" ng-controller="my-ctrl">
     <div class="jumbotron">
-        <h1 class="text-center">Direct flight</h1>
+        <h1 class="text-center" style="color:teal"> <i style="font-size:34px" class="fa">&#xf072;</i> Direct flight</h1>
     </div>
-   <div class=" row pad">
+   <div class=" row pad"> 
     <div class="col-md-4 ">
-      <input type="text" class="form-control" placeholder="&#xF002; From" style="font-family:Arial, FontAwesome" />
+      <input type="text" ng-model="from" class="form-control" placeholder="&#xF002; From   Ex: BLR" style="font-family:Arial, FontAwesome" />
     </div>
     <div class="col-md-4 ">
-       <input type="text" class="form-control" placeholder="&#xF002; To" style="font-family:Arial, FontAwesome" />
+       <input type="text" ng-model="to" class="form-control" placeholder="&#xF002; To   Ex: HYD" style="font-family:Arial, FontAwesome" />
     </div>
     <div class="col-md-4 ">
         <input type="text" class="form-control" placeholder="Date">
     </div>
    </div>
-   {{flights}}
+   <ul>
+       <!-- | filter:test -->
+    <div class="card" style="margin-top: 10px">
+        <ul class="list-group list-group-flush row" ng-repeat="list in paths.return">
+                <li class="list-group-item" ng-repeat="i in list.flights| filter:{from:from, to:to} ">
+                    <i style="font-size:24px" class="fa">&#xf072;</i>
+                    &nbsp;&nbsp;&nbsp; 
+                   <b>{{i.carrier_name}}</b> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <span style="color: green">{{i.from}} - {{i.to}} </span>
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <b>Departure:</b> {{i.departure_date_time}} 
+                    &nbsp;&nbsp;&nbsp;   
+                    <b>Arrival:</b> {{i.arrival_date_time}}
+                     <div class="text-right" style="color:red"><b>Price: {{list.sale_price| currency}} </b></div>
+                </li>
+        </ul>
+    </div>
+  </ul>
 
-<script src="../Resources/angular.min.js"></script>
-<script src="../Controllers/mainController.js"></script>
-<script src="../Styles/main.js"></script>
+<script src="../public/Resources/angular.min.js"></script>
+<script src="../public/Controllers/mainController.js"></script>
 <script src="https://code.angularjs.org/1.2.16/angular-resource.js"></script>
 </body>
 </html>
